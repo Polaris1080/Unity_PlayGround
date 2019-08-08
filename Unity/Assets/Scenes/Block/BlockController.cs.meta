@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e650b25e2adf841418d4a978477cac58
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - brokenBlock: {fileID: 100008, guid: caf0deeb142564d5bbcd349ae1f3e6a3, type: 2}
+  - spawnCoin: {fileID: 1435734082940930, guid: 4fd3283360a44ac4694f00c7aedec96e,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

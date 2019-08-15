@@ -6,6 +6,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MyLibrary;
+using UniRx;
+using UniRx.Triggers;
 [RequireComponent(typeof(BoxCollider2D))]
 
 
@@ -38,18 +40,26 @@ public class BlockController : MonoBehaviour
         c_gameinstance = GameObject.Find("Level").GetComponent<Level.GameInstance>();
     }
 
-    ///<summary>コリジョン接触検知</summary>
-    private void OnCollisionEnter2D(Collision2D collision2D)
+    ///<summary>ゲーム開始時</summary>
+    private void Start()
     {
-        //Unitychanが当たって来たとき
-        if (collision2D.gameObject.tag == "Player")
-        {
+        //コリジョン接触検知
+        this.OnCollisionEnter2DAsObservable()
+            //Unitychanが当たって来たとき
+            .Where(_ => _.gameObject.tag == "Player")
+            //破壊可能かどうか確認
+            .Where(_ => p_breakable)
             //当たり判定の確認
-            bool overlap = OverlapArea.Check(transform.position.x, transform.position.y - transform.lossyScale.y,
-                                             c_collision.size.x * 0.49f, 0.05f,
-                                             cp_whatIsPlayer);
-            if (overlap && p_breakable)
-            {
+            .Where(_ => OverlapArea.Check(transform.position.x,
+                                          transform.position.y - transform.lossyScale.y,
+                                          c_collision.size.x * 0.49f,
+                                          0.05f,
+                                          cp_whatIsPlayer))
+            .Subscribe(_ => OnCollision());
+    }
+
+    private void OnCollision()
+    {
                 c_gameinstance.BreakBlock(); //GameInstance.Block++;
 
                 //抽選に成功すればコインをスポーン、失敗すればブロックだけ。
@@ -62,7 +72,6 @@ public class BlockController : MonoBehaviour
                 }
 
                 Destroy(gameObject); //自身を破壊 
-            }
-        }
     }
+    
 }

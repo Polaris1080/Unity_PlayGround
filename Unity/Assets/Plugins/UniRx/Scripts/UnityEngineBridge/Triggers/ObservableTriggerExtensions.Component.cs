@@ -244,7 +244,7 @@ namespace UniRx.Triggers
         #region ObservableUpdateTrigger
 
         /// <summary>Update is called every frame, if the MonoBehaviour is enabled.</summary>
-        public static IObservable<Unit> UpdateAsObservable(this Component component)
+        public static IObservable<Unit> OnCollisionEnter2DObservable(this Component component)
         {
             if (component == null || component.gameObject == null) return Observable.Empty<Unit>();
             return GetOrAddComponent<ObservableUpdateTrigger>(component.gameObject).UpdateAsObservable();

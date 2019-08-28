@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1417990462357211633}
-  - component: {fileID: 8423117062459821008}
   m_Layer: 0
   m_Name: Billboard
   m_TagString: Untagged
@@ -24,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1417990462357211632}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -34,27 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8423117062459821008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1417990462357211632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00da9dc0bbad2a04586fd6f7e61e717c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  table_Logo_opacity:
-  - {x: 0.66, y: 0.99}
-  - {x: 0.33, y: 0.9}
-  - {x: 0.17, y: 0.95}
-  - {x: 0.01, y: 0.99}
-  correction_Floor: {x: 0, y: 3.5, z: 0}
-  moveRatio_Mountain: {x: 0.0625, y: 0.0625, z: 0}
-  moveRatio_Night: {x: -0.125, y: -0.125, z: 0}
-  c_FirstRotation_Mountain_X: -30
 --- !u!1 &2575732972203245784
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,6 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8075386290893311617}
   - component: {fileID: 538912221754468433}
+  - component: {fileID: 8670198702995220757}
   m_Layer: 0
   m_Name: BackGround_Night
   m_TagString: Untagged
@@ -80,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2575732972203245784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.35, z: 0}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 1417990462357211633}
@@ -134,6 +113,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8670198702995220757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2575732972203245784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07cf3565d63e2134d8f1f15db30193f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p_correction_floor: {x: 0, y: 3.5, z: 0}
+  p_move_ratio: {x: 0, y: 0, z: 0}
+  p_flag_move: 1
 --- !u!1 &6183062187025997680
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2933772671918989311}
   - component: {fileID: 3919156337953436827}
+  - component: {fileID: 5584800444304623548}
   m_Layer: 0
   m_Name: BackGround_Mountain
   m_TagString: Untagged
@@ -159,7 +154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6183062187025997680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 1417990462357211633}
@@ -213,6 +208,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5584800444304623548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6183062187025997680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab9cad629ee995c469a54e8bba8e3f8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p_correction_floor: {x: 0, y: 3.5, z: 0}
+  p_move_ratio: {x: 0, y: 0, z: 0}
+  p_flag_move: 1
 --- !u!1 &8901483460302662125
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 418626576572982982}
   - component: {fileID: 3849553230971831697}
+  - component: {fileID: 8604539943106075207}
   m_Layer: 0
   m_Name: Logo_UnityChan
   m_TagString: Untagged
@@ -292,3 +303,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8604539943106075207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8901483460302662125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab4357686d0a1b4ba6825746f98bfed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  t_Logo_opacity:
+  - {x: 0.66, y: 0.25}
+  - {x: 0.33, y: 0.667}
+  - {x: 0.17, y: 0.5}
+  - {x: 0.01, y: 0.334}
+  p_flag_Update: 1

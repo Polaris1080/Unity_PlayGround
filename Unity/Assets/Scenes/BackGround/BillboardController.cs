@@ -4,8 +4,10 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class BillboareController : MonoBehaviour
+
+public class BillboardController : MonoBehaviour
 {
+
     /* ReactiveProperty */
     ///<summary>Logoの透明度</summary>
     private FloatReactiveProperty rp_Logo_opacity = new FloatReactiveProperty(1f);
@@ -29,6 +31,10 @@ public class BillboareController : MonoBehaviour
     [Tooltip("BackGround_Nightの移動倍率")]
     ///<summary>プレイヤーの位置に対する、Nightが移動する倍率</summary>
     public Vector3 moveRatio_Night    = new Vector3(-0.125f, -0.125f, 0f);
+
+    public bool flag_Mountain_Update, flag_Night_Update, flag_Logo_Update;
+
+
 
     /* 変数(半固定) */
     private GameObject c_UnityChan;
@@ -56,24 +62,22 @@ public class BillboareController : MonoBehaviour
         rp_Logo_opacity.Subscribe(_ => c_Logo_SpriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, _));
 
         /* BackGround_Mountain */
-        Observable.EveryUpdate().Subscribe(_ => Mountain_Update()).AddTo(c_Mountain);
+        Observable.EveryUpdate()
+            .Where    (_ => flag_Mountain_Update)
+            .Subscribe(_ => MovePosition(c_Mountain, c_FirstPosition_Mountain, moveRatio_Mountain))
+            .AddTo(c_Mountain);
+
         /* BackGround_Night */
-        Observable.EveryUpdate().Subscribe(_ => Night_Update()).AddTo(c_Night);
+        Observable.EveryUpdate()
+            .Where    (_ => flag_Night_Update)
+            .Subscribe(_ => MovePosition(c_Night,    c_FirstPosition_Night,    moveRatio_Night))
+            .AddTo(c_Night);
+
         /* Logo_UnityChan */
-        Observable.EveryUpdate().Subscribe(_ => Logo_Update()).AddTo(c_Logo);
-    }
-
-    private void Night_Update()
-    {
-        MovePosition(c_Night, c_FirstPosition_Night, moveRatio_Night);
-    }
-
-    private void Mountain_Update() {
-        /* 位置変更 */
-        MovePosition(c_Mountain, c_FirstPosition_Mountain, moveRatio_Mountain);
-
-        /* 回転変更 */
-        //c_Mountain.transform.rotation = Quaternion.Euler(0, 0, c_UnityChan.transform.position.x *0.33f);
+        Observable.EveryUpdate()
+            .Where(_ => flag_Logo_Update)
+            .Subscribe(_ => Logo_Update())
+            .AddTo(c_Logo);
     }
     private void Logo_Update() {
         //閾値判定を行い、引っかかるならば、透明度を変更して抜ける
@@ -89,6 +93,5 @@ public class BillboareController : MonoBehaviour
     {
         Vector3 addPosition = Vector3.Scale(correction_Floor + c_UnityChan.transform.position, ratio);
         target.transform.position = firstposition + addPosition;
-
     }
 }

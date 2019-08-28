@@ -56,7 +56,7 @@ public class BillboareController : MonoBehaviour
         rp_Logo_opacity.Subscribe(_ => c_Logo_SpriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, _));
 
         /* BackGround_Mountain */
-        Observable.EveryUpdate().Subscribe(_ => Mountain_Update(_)).AddTo(c_Mountain);
+        Observable.EveryUpdate().Subscribe(_ => Mountain_Update()).AddTo(c_Mountain);
         /* BackGround_Night */
         Observable.EveryUpdate().Subscribe(_ => Night_Update()).AddTo(c_Night);
         /* Logo_UnityChan */
@@ -65,18 +65,15 @@ public class BillboareController : MonoBehaviour
 
     private void Night_Update()
     {
-        /* 位置変更 */
-        Vector3 addPosition           = Vector3.Scale(correction_Floor + c_UnityChan.transform.position, moveRatio_Night);
-        c_Night.transform.position    = c_FirstPosition_Night    + addPosition;
+        MovePosition(c_Night, c_FirstPosition_Night, moveRatio_Night);
     }
 
-    private void Mountain_Update(long _) {
+    private void Mountain_Update() {
         /* 位置変更 */
-        Vector3 addPosition           = Vector3.Scale(correction_Floor + c_UnityChan.transform.position, moveRatio_Mountain);
-        c_Mountain.transform.position = c_FirstPosition_Mountain + addPosition;
+        MovePosition(c_Mountain, c_FirstPosition_Mountain, moveRatio_Mountain);
 
         /* 回転変更 */
-        c_Mountain.transform.rotation = Quaternion.Euler(0, 0, c_UnityChan.transform.position.x *0.33f);
+        //c_Mountain.transform.rotation = Quaternion.Euler(0, 0, c_UnityChan.transform.position.x *0.33f);
     }
     private void Logo_Update() {
         //閾値判定を行い、引っかかるならば、透明度を変更して抜ける
@@ -85,5 +82,13 @@ public class BillboareController : MonoBehaviour
         }
         rp_Logo_opacity.Dispose(); //すべての閾値に引っかからなければ、
         Destroy(c_Logo);        //Streamを停止して、Logoを破壊
+    }
+
+    ///<summary>位置変更</summary>
+    private void MovePosition(GameObject target, Vector3 firstposition,Vector3 ratio)
+    {
+        Vector3 addPosition = Vector3.Scale(correction_Floor + c_UnityChan.transform.position, ratio);
+        target.transform.position = firstposition + addPosition;
+
     }
 }
